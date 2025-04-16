@@ -1,0 +1,1164 @@
+
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Professional Portfolio</title>
+      <link
+         rel="stylesheet"
+         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      />
+   </head>
+   <body>
+      <style>
+         @import url('https://fonts.googleapis.com/css2?family=Clicker+Script&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Saira+Extra+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+         :root {
+            --font-family: 'Open Sans', sans-serif;
+            --font-family-Mulish: 'Open Sans', sans-serif;
+            /* Changed to match available font */
+
+            --text-xxl: clamp(3rem, 5vw, 5.5rem);
+            --text-xl: clamp(3.6rem, 4.5vw, 5rem);
+            --text-lg: clamp(2.2rem, 3vw, 3.5rem);
+            --text-md: clamp(2rem, 2.6vw, 2.2rem);
+            --text-sm: clamp(0.8rem, 1.3vw, 2rem);
+            --text-xs: clamp(0.64rem, 1.04vw, 0.8rem);
+
+            --primary-color: #166e82;
+            --dark-color: #282828;
+            --light-color: #ecf0f1;
+            --bg-color: #f5f5f5;
+            --text-color: #333;
+         }
+
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+         }
+
+         body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            font-family: var(--font-family);
+         }
+
+         h1,
+         h2,
+         h3 {
+            /* Fixed missing comma */
+            font-family: var(--font-family);
+         }
+
+         @media screen and (max-width: 768px) {
+            h1,
+            h2,
+            h3 {
+               line-height: 1.1;
+            }
+         }
+
+         .container {
+            display: flex;
+            min-height: 100vh;
+         }
+
+         /* Sidebar Styles */
+         .sidebar {
+            width: 280px;
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            padding: 20px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 1000;
+         }
+
+         .sidebar-hidden {
+            transform: translateX(-280px);
+         }
+
+         .profile {
+            text-align: center;
+            margin-bottom: 30px;
+         }
+
+         .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid var(--light-color);
+            margin-bottom: 15px;
+            object-fit: cover;
+         }
+
+         .profile h2 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+         }
+
+         .profile p {
+            font-size: var(--text-xs);
+            color: #bdc3c7;
+         }
+
+         .nav-links {
+            list-style: none;
+         }
+
+         .nav-links li {
+            margin-bottom: 0.5rem;
+         }
+
+         .nav-links a {
+            display: block;
+            color: var(--light-color);
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+         }
+
+         .nav-links a:hover,
+         .nav-links a.active {
+            background-color: #34495e;
+            transform: translateX(5px);
+         }
+
+         .nav-links i {
+            margin-right: 10px;
+         }
+
+         /* Main Content Styles */
+         .main-content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 280px;
+            transition: all 0.3s ease;
+         }
+
+         .main-content-full {
+            margin-left: 0;
+         }
+
+         .header {
+            display: flex;
+            align-items: flex-start;
+            padding: 10px 0;
+            margin-bottom: 30px;
+            flex-direction: column;
+            position: relative;
+            /* Added for better menu toggle positioning */
+         }
+
+         .menu-toggle {
+            display: none;
+            position: sticky;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-color);
+            position: absolute;
+            /* Position the toggle button */
+            top: 10px;
+            right: 0;
+            z-index: 100;
+         }
+
+         .header-content {
+            width: 100%;
+            padding-left: 30px;
+            /* Make space for the toggle button */
+         }
+
+         /* Social Icons */
+         .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+         }
+
+         .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 3rem;
+            background-color: #495057;
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.2s ease-in-out;
+         }
+
+         .social-icon:hover {
+            background-color: var(--primary-color);
+            transform: scale(1.1);
+         }
+
+         /* Responsive Design */
+         @media (max-width: 992px) {
+            .sidebar {
+               width: 240px;
+            }
+
+            .sidebar-hidden {
+               transform: translateX(-240px);
+            }
+
+            .main-content {
+               margin-left: 240px;
+            }
+
+            .main-content-full {
+               margin-left: 0;
+            }
+         }
+
+         @media (max-width: 768px) {
+            .menu-toggle {
+               display: block;
+            }
+
+            .sidebar {
+               width: 240px;
+               /* Keep consistent width */
+            }
+
+            .main-content {
+               margin-left: 0;
+               /* Default to full width on mobile */
+            }
+
+            .projects-grid {
+               grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+
+            .header {
+               flex-direction: row;
+               align-items: center;
+               justify-content: space-between;
+               padding-left: 40px;
+               /* Make room for menu toggle */
+            }
+
+            .header-content {
+               padding-left: 0;
+            }
+
+            .header h2 {
+               font-size: calc(var(--text-xxl) * 0.7);
+               /* Smaller on mobile */
+            }
+
+            .social-icons {
+               margin-top: 10px;
+               gap: 10px;
+            }
+
+            .social-icon {
+               width: 2.5rem;
+               height: 2.5rem;
+               font-size: 1.2rem;
+            }
+         }
+
+         @media (max-width: 576px) {
+            .social-icon {
+               width: 2rem;
+               height: 2rem;
+               font-size: 1rem;
+            }
+
+            .header h2 {
+               font-size: calc(var(--text-xxl) * 0.5);
+               /* Even smaller on very small screens */
+            }
+         }
+
+         .section {
+            margin-bottom: 5rem;
+         }
+
+         .text-orange {
+            color: var(--primary-color);
+         }
+
+         .header h2 {
+            font-family: var(--font-family);
+            font-size: var(--text-xxl);
+            font-weight: 700;
+            /* Reduced from 900 for better readability */
+         }
+
+         @media screen and (max-width: 768px) {
+            .aboutme {
+               text-align: center;
+            }
+         }
+
+         /* Education Section Styling */
+         .section#education {
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+         }
+
+         .section#education h2 {
+            font-family: var(--font-family);
+            font-size: var(--text-lg);
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+         }
+
+         .education-item {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+         }
+
+         .education-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+         }
+
+         .education-item:last-child {
+            margin-bottom: 0;
+         }
+
+         .education-item h3 {
+            font-family: var(--font-family);
+            font-size: var(--text-md);
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 0.75rem;
+         }
+
+         .education-item p {
+            font-family: var(--font-family);
+            font-size: var(--text-sm);
+            margin-bottom: 0.5rem;
+            color: #495057;
+         }
+
+         .education-item p:first-of-type {
+            font-weight: 500;
+         }
+
+         .education-item p:last-of-type {
+            color: var(--primary-color);
+            font-weight: 600;
+         }
+
+         /* Responsive adjustments */
+         @media (min-width: 768px) {
+            .section#education {
+               display: flex;
+               flex-direction: column;
+            }
+
+            .education-items-container {
+               display: grid;
+               grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+               gap: 1.5rem;
+            }
+         }
+
+         /* Skills Section Styling */
+         .section#skills {
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+         }
+
+         .section#skills h2 {
+            font-family: var(--font-family);
+            font-size: var(--text-lg);
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+         }
+
+         .skills-section {
+            margin-bottom: 2rem;
+         }
+
+         .skills-section h3 {
+            font-family: var(--font-family);
+            font-size: var(--text-md);
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 1rem;
+         }
+
+         .skills-section h3::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 70%;
+            width: 5px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+         }
+
+         /* Technical Skills (Programming & Tools) */
+         .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+         }
+
+         .skill-item {
+            display: flex;
+            align-items: center;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+         }
+
+         .skill-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background-color: #f0f0f0;
+         }
+
+         .skill-item i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-right: 0.75rem;
+            min-width: 2rem;
+            text-align: center;
+         }
+
+         .skill-item span {
+            font-family: var(--font-family);
+            font-size: var(--text-sm);
+            font-weight: 500;
+            color: #495057;
+         }
+
+         /* Professional Skills */
+         .professional-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+         }
+
+         .prof-skill-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.25rem;
+            background-color: rgba(189, 93, 56, 0.1);
+            border-left: 4px solid var(--primary-color);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+         }
+
+         .prof-skill-item:hover {
+            background-color: rgba(189, 93, 56, 0.2);
+            transform: translateX(5px);
+         }
+
+         .prof-skill-item i {
+            color: var(--primary-color);
+            margin-right: 0.75rem;
+            font-size: 1.25rem;
+         }
+
+         .prof-skill-item span {
+            font-family: var(--font-family);
+            font-weight: 500;
+            color: #495057;
+         }
+
+         /* Responsive adjustments */
+         @media (max-width: 768px) {
+            .skills-container {
+               grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+
+            .professional-skills {
+               flex-direction: column;
+            }
+
+            .prof-skill-item {
+               width: 100%;
+            }
+         }
+
+         @media (max-width: 576px) {
+            .skills-container {
+               grid-template-columns: 1fr 1fr;
+            }
+
+            .skill-item {
+               padding: 0.75rem;
+            }
+
+            .skill-item i {
+               font-size: 1.25rem;
+               margin-right: 0.5rem;
+            }
+         }
+
+         /* Interests Section */
+         .interests {
+            padding: 40px 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            margin: 20px 0;
+            /* Changed from fixed margins */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+         }
+
+         .interests h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+         }
+
+         .interests-content p {
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 20px;
+         }
+
+         .interest-list {
+            list-style: none;
+            padding-left: 0;
+         }
+
+         .interest-list li {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            position: relative;
+         }
+
+         .interest-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+         }
+
+         .interest-list strong {
+            color: #333;
+         }
+
+         /* Projects Section */
+         .projects {
+            padding: 40px 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            margin: 20px 0;
+            /* Changed from fixed margins */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+         }
+
+         .projects h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: var(--dark-color);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+         }
+
+         .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+         }
+
+         .project-card {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+         }
+
+         .project-card:hover {
+            transform: translateY(-5px);
+         }
+
+         .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+         }
+
+         .project-info {
+            padding: 20px;
+         }
+
+         .project-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #333;
+         }
+
+         .project-info p {
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 20px;
+         }
+
+         .project-link {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+         }
+
+         .project-link:hover {
+            background-color: #96472b;
+         }
+
+         /* Affiliations Section */
+         .affiliations {
+            max-width: 100%;
+            /* Changed from fixed width */
+            margin: 40px 0;
+            /* Changed from fixed margins */
+            padding: 30px;
+            border-radius: 12px;
+            background: linear-gradient(145deg, #ffffff, #f0f4f8);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+         }
+
+         .affiliations h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 12px;
+         }
+
+         .affiliations h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+         }
+
+         .affiliation-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+         }
+
+         .affiliation-item {
+            padding: 20px;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary-color);
+         }
+
+         .affiliation-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border-left-color: #3f9c09;
+         }
+
+         .affiliation-item strong {
+            display: block;
+            font-size: 18px;
+            color: var(--dark-color);
+            margin-bottom: 6px;
+         }
+
+         .affiliation-year {
+            font-size: 14px;
+            color: #7f8c8d;
+            font-weight: 500;
+         }
+
+         /* Research Section */
+         .research-section {
+            max-width: 100%;
+            /* Changed from fixed width */
+            margin: 60px 0;
+            /* Changed from fixed margins */
+            padding: 40px;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            font-family: var(--font-family);
+         }
+
+         .research-heading {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+            color: #2d3748;
+            letter-spacing: 1px;
+            position: relative;
+         }
+
+         .research-heading:after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #4a6cf7, #6e8ffa);
+            border-radius: 2px;
+         }
+
+         .research-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+         }
+
+         .research-card {
+            background-color: #f8f9fc;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+         }
+
+         .research-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+         }
+
+         .research-grade {
+            font-size: 14px;
+            font-weight: 600;
+            color: #4a6cf7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+         }
+
+         .research-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 10px;
+         }
+
+         .research-status {
+            display: inline-block;
+            padding: 4px 12px;
+            background-color: #ebf5ff;
+            color: #3182ce;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 10px;
+         }
+
+         .research-status.research-ongoing {
+            background-color: #e6fffa;
+            color: #2c7a7b;
+         }
+
+         .research-status.research-completed {
+            background-color: #e6ffed;
+            color: #276749;
+         }
+
+         @media (max-width: 768px) {
+            .research-section,
+            .interests,
+            .projects,
+            .affiliations {
+               padding: 20px;
+               margin: 20px 0;
+               border-radius: 8px;
+            }
+
+            .research-heading {
+               font-size: 2rem;
+            }
+
+            .research-title {
+               font-size: 1.1rem;
+            }
+         }
+      </style>
+      <div class="container">
+         <!-- Sidebar -->
+         <aside class="sidebar" id="sidebar">
+            <div class="profile">
+               <img src="./Leonard.jpg" alt="Profile Picture" class="profile-img" />
+            </div>
+
+            <ul class="nav-links">
+               <li><a href="#about" class="active">About Me</a></li>
+               <li><a href="#education">Education</a></li>
+               <li><a href="#skills">Skills</a></li>
+               <li><a href="#interests">Interests</a></li>
+               <li><a href="#projects">Projects</a></li>
+               <li><a href="#affiliations">Affiliations</a></li>
+               <li><a href="#research">Research</a></li>
+            </ul>
+         </aside>
+
+         <!-- Main Content -->
+         <main class="main-content" id="about">
+            <header class="header">
+               <button class="menu-toggle" id="menu-toggle">☰</button>
+               <div class="header-content">
+                  <h2>LEONARD CHRISTIAN <span class="text-orange">GONZALES</span></h2>
+                  <p>
+                     (+63) 9616843934 ·
+                     <span
+                        ><a href="mailto:leonardchristiangonzales@gmail.com" class="text-orange"
+                           >leonardchristiangonzales@gmail.com</a
+                        ></span
+                     >
+                  </p>
+                  <!-- Social Icons -->
+                  <div class="social-icons">
+                     <a
+                        href="https://linkedin.com/in/your-profile"
+                        target="_blank"
+                        class="social-icon"
+                     >
+                        <i class="fab fa-linkedin-in"></i>
+                     </a>
+                     <a href="https://github.com/Chan00006" target="_blank" class="social-icon">
+                        <i class="fab fa-github"></i>
+                     </a>
+                     <a
+                        href="https://www.instagram.com/channy_channn"
+                        target="_blank"
+                        class="social-icon"
+                     >
+                        <i class="fab fa-instagram"></i>
+                     </a>
+                     <a
+                        href="https://www.facebook.com/leonardchristian.gonzales.1"
+                        target="_blank"
+                        class="social-icon"
+                     >
+                        <i class="fab fa-facebook-f"></i>
+                     </a>
+                  </div>
+               </div>
+            </header>
+
+            <!-- About Section -->
+            <section class="section aboutme">
+               <h2>About Me</h2>
+               <p>
+                  As a driven and enthusiastic student, I am eager to utilize my education and
+                  skills to make a meaningful impact in the workforce. With a strong work ethic and
+                  a passion for learning, I am committed to developing my abilities and contributing
+                  to the success of any organization I am a part of. Through my academic studies,
+                  extracurricular activities, and previous work experiences, I have developed
+                  valuable skills in communication, teamwork, problem- solving, and time management.
+                  I am excited to apply these skills and continue to grow professionally in a
+                  dynamic and challenging environment.
+               </p>
+            </section>
+
+            <!-- Education Section -->
+            <section class="section" id="education">
+               <h2>Education</h2>
+               <div class="education-items-container">
+                  <div class="education-item">
+                     <h3>PRIMARY EDUCATION</h3>
+                     <p>Maryknoll School of Lupon Inc.</p>
+                     <p>2011 - 2017</p>
+                  </div>
+                  <div class="education-item">
+                     <h3>SECONDARY EDUCATION</h3>
+                     <p>Maryknoll School of Lupon Inc.</p>
+                     <p>2017 - 2021</p>
+                  </div>
+                  <div class="education-item">
+                     <h3>TERTIARY EDUCATION</h3>
+                     <p>ATENEO DE DAVAO UNIVERSITY</p>
+                     <p>Bachelor of Science in Information Technology</p>
+                     <p>2025 - 2027</p>
+                  </div>
+               </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section class="section" id="skills">
+               <h2>SKILLS</h2>
+
+               <div class="skills-section">
+                  <h3>Programming Languages & Tools</h3>
+                  <div class="skills-container">
+                     <div class="skill-item">
+                        <i class="fas fa-globe"></i>
+                        <span>Web Development</span>
+                     </div>
+                     <div class="skill-item">
+                        <i class="fab fa-js"></i>
+                        <span>JavaScript</span>
+                     </div>
+                     <div class="skill-item">
+                        <i class="fab fa-html5"></i>
+                        <span>HTML & CSS</span>
+                     </div>
+                     <div class="skill-item">
+                        <i class="fab fa-react"></i>
+                        <span>React</span>
+                     </div>
+                     <div class="skill-item">
+                        <i class="fa-solid fa-database"></i>
+                        <span>SQL</span>
+                     </div>
+                     <div class="skill-item">
+                        <i class="fab fa-php"></i>
+                        <span>Php</span>
+                     </div>
+                     <div class="skill-item">
+                        <i class="fab fa-java"></i>
+                        <span>Java</span>
+                     </div>
+                     <div class="skill-item">
+                        <i class="fab fa-python"></i>
+                        <span>Python</span>
+                     </div>
+                     <div class="skill-item">
+                        <i class="fas fa-pencil-ruler"></i>
+                        <span>UX Design</span>
+                     </div>
+                     <div class="skill-item">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Technical Writing</span>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="skills-section">
+                  <h3>Soft Skills</h3>
+                  <div class="professional-skills">
+                     <div class="prof-skill-item">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Design Thinking</span>
+                     </div>
+                     <div class="prof-skill-item">
+                        <i class="fas fa-headphones"></i>
+                        <span>Active Listener</span>
+                     </div>
+                     <div class="prof-skill-item">
+                        <i class="fas fa-comments"></i>
+                        <span>Good Communication Skills</span>
+                     </div>
+                     <div class="prof-skill-item">
+                        <i class="fas fa-laptop"></i>
+                        <span>Computer Literacy</span>
+                     </div>
+                     <div class="prof-skill-item">
+                        <i class="fas fa-bullhorn"></i>
+                        <span>Strong Communication</span>
+                     </div>
+                  </div>
+               </div>
+            </section>
+
+            <!-- Interests Section -->
+            <section class="interests" id="interests">
+               <h2>Interests</h2>
+               <div class="interests-content">
+                  <p>
+                     My journey through leadership, creativity, and storytelling during my time at
+                     Maryknoll School of Lupon Inc. has shaped some of my strongest interests. These
+                     experiences continue to fuel my passion for media, design, and purposeful
+                     communication.
+                  </p>
+
+                  <ul class="interest-list">
+                     <li>
+                        <strong>Creative Writing & Editorial Work</strong> – Served as Editor in
+                        Chief (2019–2020), leading publication efforts and shaping content
+                        direction.
+                     </li>
+                     <li>
+                        <strong>Visual Storytelling & Layout Design</strong> – Worked as a Layout
+                        Artist, bringing stories to life through digital visuals and editorial
+                        design.
+                     </li>
+                     <li>
+                        <strong>Photojournalism</strong> – Captured compelling imagery to support
+                        journalistic pieces, events, and reports within the school community.
+                     </li>
+                     <li>
+                        <strong>Leadership in Campus Journalism</strong> – Guided editorial teams
+                        and coordinated publications that informed and inspired fellow students.
+                     </li>
+                     <li>
+                        <strong>Passion for Communication & Media</strong> – Continuously exploring
+                        ways to blend technology, art, and storytelling across platforms.
+                     </li>
+                  </ul>
+               </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section class="projects" id="projects">
+               <h2>Projects</h2>
+               <div class="projects-grid">
+                  <div class="project-card">
+                     <img src="./Project.png" alt="Project 1" class="project-image" />
+                     <div class="project-info">
+                        <h3>Responsive Portfolio Website</h3>
+                        <p>
+                           A personal website showcasing education, skills, and projects using my
+                           skills.
+                        </p>
+                        <a href="https://github.com/Chan00006" class="project-link" target="_blank"
+                           >View Project</a
+                        >
+                     </div>
+                  </div>
+               </div>
+            </section>
+            <section class="affiliations" id="affiliations">
+               <h2>Affiliations</h2>
+               <div class="affiliation-list">
+                  <div class="affiliation-item">
+                     <strong>Davao Regional Athletic Meet (DAVRAA)</strong>
+                     <span class="affiliation-year">2016-2017</span>
+                  </div>
+                  <div class="affiliation-item">
+                     <strong>Sports Writer</strong>
+                     <span class="affiliation-year">2014-2017</span>
+                  </div>
+                  <div class="affiliation-item">
+                     <strong>Regional Journalist</strong>
+                     <span class="affiliation-year">2015-2017</span>
+                  </div>
+                  <div class="affiliation-item">
+                     <strong>Photojournalist</strong>
+                     <span class="affiliation-year">2017-2019</span>
+                  </div>
+                  <div class="affiliation-item">
+                     <strong>Sandigan Committee</strong>
+                     <span class="affiliation-year">2018-2019</span>
+                  </div>
+                  <div class="affiliation-item">
+                     <strong>Soccer Varsity Player</strong>
+                     <span class="affiliation-year">2015-2021</span>
+                  </div>
+               </div>
+            </section>
+
+            <!-- Research Section -->
+            <section class="research-section" id="research">
+               <h2 class="research-heading">Research</h2>
+               <div class="research-container">
+                  <div class="research-card">
+                     <div class="research-grade">Grade 11</div>
+                     <div class="research-title">
+                        PROFESSION OF HOPE: A FARMER'S WORLD UNKNOWN TO THE PEOPLE
+                     </div>
+                     <span class="research-status research-completed">Completed</span>
+                  </div>
+
+                  <div class="research-card">
+                     <div class="research-grade">Grade 12</div>
+                     <div class="research-title">
+                        STRENGTHENING THE INVULNERABILITY OF A TOMATO (SOLANUM LYCOPERSICUM L.)
+                        THROUGH GENETICAL MODIFICATION IN FOCUS OF MICRO-INJECTION (NAPHTHALENEACID)
+                     </div>
+                     <span class="research-status research-completed">Completed</span>
+                  </div>
+               </div>
+            </section>
+         </main>
+      </div>
+
+      <script>
+         document.addEventListener('DOMContentLoaded', function () {
+            const menuToggle = document.getElementById('menu-toggle');
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.querySelector('.main-content');
+
+            // Initialize sidebar state based on screen size
+            function initializeSidebar() {
+               if (window.innerWidth <= 768) {
+                  sidebar.classList.add('sidebar-hidden');
+                  mainContent.classList.add('main-content-full');
+               }
+            }
+
+            // Call on page load
+            initializeSidebar();
+
+            // Toggle sidebar when menu button is clicked
+            menuToggle.addEventListener('click', function () {
+               sidebar.classList.toggle('sidebar-hidden');
+               mainContent.classList.toggle('main-content-full');
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', function () {
+               if (window.innerWidth <= 768) {
+                  if (!sidebar.classList.contains('sidebar-hidden')) {
+                     sidebar.classList.add('sidebar-hidden');
+                     mainContent.classList.add('main-content-full');
+                  }
+               } else {
+                  // On larger screens, show sidebar by default
+                  sidebar.classList.remove('sidebar-hidden');
+                  mainContent.classList.remove('main-content-full');
+               }
+            });
+
+            // Handle navigation link clicks (for mobile)
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach((link) => {
+               link.addEventListener('click', function () {
+                  if (window.innerWidth <= 768) {
+                     sidebar.classList.add('sidebar-hidden');
+                     mainContent.classList.add('main-content-full');
+                  }
+               });
+            });
+         });
+      </script>
+   </body>
+</html>
